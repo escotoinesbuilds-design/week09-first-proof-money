@@ -6,6 +6,7 @@ export type Placement = {
   studentName: string;
   employerId: string;
   employerName: string;
+  isPartner: boolean;
   role: string;
   term: string;
   paid: boolean;
@@ -33,6 +34,7 @@ export const placements: Placement[] = [
     studentName: "Maya Chen",
     employerId: "EMP-01",
     employerName: "Northstar Works",
+    isPartner: true,
     role: "Marketing Intern",
     term: "Fall 2025",
     paid: true,
@@ -51,6 +53,7 @@ export const placements: Placement[] = [
     studentName: "Leo Park",
     employerId: "EMP-02",
     employerName: "Cedar Grove Analytics",
+    isPartner: true,
     role: "Data Analyst Co-op",
     term: "Fall 2025",
     paid: true,
@@ -69,6 +72,7 @@ export const placements: Placement[] = [
     studentName: "Ana Ruiz",
     employerId: "EMP-03",
     employerName: "Mapleline Studio",
+    isPartner: true,
     role: "Project Assistant",
     term: "Fall 2025",
     paid: true,
@@ -87,6 +91,7 @@ export const placements: Placement[] = [
     studentName: "Jordan Lee",
     employerId: "EMP-04",
     employerName: "Brightpath Services",
+    isPartner: true,
     role: "Customer Success Associate",
     term: "Spring 2026",
     paid: true,
@@ -105,6 +110,7 @@ export const placements: Placement[] = [
     studentName: "Sofie Martin",
     employerId: "EMP-05",
     employerName: "Harbor Point Labs",
+    isPartner: true,
     role: "Research Assistant",
     term: "Fall 2025",
     paid: true,
@@ -123,6 +129,7 @@ export const placements: Placement[] = [
     studentName: "Eli Turner",
     employerId: "EMP-05",
     employerName: "Harbor Point Labs",
+    isPartner: true,
     role: "Lab Support Intern",
     term: "Spring 2026",
     paid: true,
@@ -141,6 +148,7 @@ export const placements: Placement[] = [
     studentName: "Luca Bennett",
     employerId: "EMP-06",
     employerName: "Pinecrest Digital",
+    isPartner: true,
     role: "Software Support Trainee",
     term: "Spring 2026",
     paid: false,
@@ -159,6 +167,7 @@ export const placements: Placement[] = [
     studentName: "Noor Ahmed",
     employerId: "EMP-07",
     employerName: "Ridgeway Health",
+    isPartner: true,
     role: "Data Operations Intern",
     term: "Fall 2025",
     paid: true,
@@ -177,6 +186,7 @@ export const placements: Placement[] = [
     studentName: "Mia Brooks",
     employerId: "EMP-08",
     employerName: "Vale & Co.",
+    isPartner: true,
     role: "Business Operations Assistant",
     term: "Spring 2026",
     paid: true,
@@ -195,6 +205,7 @@ export const placements: Placement[] = [
     studentName: "Theo Santos",
     employerId: "EMP-09",
     employerName: "Westhaven Cooperative",
+    isPartner: true,
     role: "Communications Intern",
     term: "Fall 2025",
     paid: true,
@@ -212,15 +223,18 @@ export const placements: Placement[] = [
 export function assessPlacement(
   placement: Placement,
 ): PlacementAssessment {
-  const verifiedPaidStart =
-    placement.paid &&
-    placement.officialStartDate !== null &&
-    placement.evidenceStatus === "verified";
-
+  const missingRequirements: string[] = [];
+  if (!placement.isPartner) missingRequirements.push("employer partnership");
+  if (!placement.paid) missingRequirements.push("paid role");
+  if (!placement.officialStartDate) missingRequirements.push("official start");
+  if (placement.evidenceStatus !== "verified") {
+    missingRequirements.push("verified evidence");
+  }
+  const verifiedPaidStart = missingRequirements.length === 0;
   const paymentEligible = verifiedPaidStart;
   const eligibilityReason = paymentEligible
     ? "Verified official start in a paid role; eligible for human payment review."
-    : "Not eligible: a paid official start and verified evidence are required.";
+    : `Not eligible: ${missingRequirements.join(", ")} required.`;
 
   const warningFlags: string[] = [];
   if (placement.reviewSignals.repeatedShortPlacement) {

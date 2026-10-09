@@ -30,6 +30,23 @@ test("only paid placements with an official verified start are eligible for revi
   assert.equal(assessPlacement(unpaidPlacement).paymentEligible, false);
 });
 
+test("a verified paid start at a non-partner employer is not eligible", () => {
+  const partnerPlacement = placements.find(({ id }) => id === "FP-1001");
+  assert.ok(partnerPlacement);
+
+  const nonPartnerPlacement: Placement = {
+    ...partnerPlacement,
+    isPartner: false,
+  };
+
+  assert.equal(assessPlacement(nonPartnerPlacement).verifiedPaidStart, false);
+  assert.equal(assessPlacement(nonPartnerPlacement).paymentEligible, false);
+  assert.match(
+    assessPlacement(nonPartnerPlacement).eligibilityReason,
+    /employer partnership/,
+  );
+});
+
 test("warning signals request human review without changing eligibility", () => {
   const repeatedPlacement = placements.find(({ id }) => id === "FP-1005");
   const shadowClausePlacement = placements.find(({ id }) => id === "FP-1004");
@@ -58,5 +75,5 @@ test("an official start without verified evidence is not eligible", () => {
   const assessment = assessPlacement(unverifiedPlacement);
   assert.equal(assessment.verifiedPaidStart, false);
   assert.equal(assessment.paymentEligible, false);
-  assert.match(assessment.eligibilityReason, /verified evidence are required/);
+  assert.match(assessment.eligibilityReason, /verified evidence required/);
 });

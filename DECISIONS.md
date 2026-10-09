@@ -12,4 +12,15 @@
 
 ## Next action at local build-stage close
 
-Run the application and mechanical checks locally, then configure the first Vercel deployment. The later build stage must discover and fix at least one genuine product bug, add a regression test, redeploy, and conduct the synthetic administrator persona test; do not treat those later-stage tasks as complete here.
+### Completed for the first local build stage
+
+- Built a responsive dashboard from ten synthetic placements across nine fictional employers and ten fictional students. The derived overview shows 6 verified paid starts, 6 placements eligible for human payment review, and 3 placements with warning flags.
+- Implemented deterministic eligibility: only paid placements with an official start date and evidence marked verified qualify for human payment review. Warning signals are separate from eligibility and never trigger automatic suspension.
+- Added fictional repeated-short-placement, possible shadow-clause, and continuing-junior-work signals. Added a static, clearly labeled simulated AI summary; it has no decision authority and does not call an API.
+- Confirmed no editable inputs, login, database, real personal data, secrets, or external API dependency are needed for this prototype.
+- Mechanical verification: all 5 rule tests pass; ESLint passes; `next build` passes. The first production build exposed an extra closing brace in the responsive stylesheet; removing it fixed the build. The production dependency audit then identified a vulnerable earlier Next.js line, so Next.js was upgraded to 16.4.0. The Next-specific lint preset introduced five high findings in a development-only transitive dependency; replacing it with the standard TypeScript ESLint preset resulted in zero reported vulnerabilities across the installed dependency tree.
+- No Vercel deployment or synthetic administrator persona test has been performed.
+
+### Next action
+
+Start and inspect the local dashboard, then configure and verify Vercel deployment 1 with fictional data only. In the later stage, discover and fix a genuine product behavior bug with a regression test, redeploy as deployment 2, and run the synthetic administrator persona test. Do not mark those later-stage tasks complete until performed.

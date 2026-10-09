@@ -19,7 +19,9 @@ const assessedPlacements = placements.map((placement) => ({
 }));
 
 const partnerCount = new Set(
-  placements.map(({ employerId }) => employerId),
+  placements
+    .filter(({ isPartner }) => isPartner)
+    .map(({ employerId }) => employerId),
 ).size;
 const studentCount = new Set(
   placements.map(({ studentId }) => studentId),
@@ -257,7 +259,10 @@ export default function Home() {
                           </span>
                           {!assessment.paymentEligible && (
                             <span className="cell-detail">
-                              Paid start + verified evidence required
+                              {assessment.eligibilityReason.replace(
+                                "Not eligible: ",
+                                "",
+                              )}
                             </span>
                           )}
                         </td>
