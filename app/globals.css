@@ -1,0 +1,32 @@
+:root {
+  color-scheme: light;
+  --ink: #132548;
+  --muted: #687894;
+  --line: #e4eaf2;
+  --canvas: #f4f7fb;
+  --navy: #172941;
+  --blue: #3569c9;
+  --green: #168454;
+  --amber: #a96400;
+  --red: #c43643;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  font: inherit;
+}
