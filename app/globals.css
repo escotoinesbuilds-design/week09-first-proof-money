@@ -688,6 +688,48 @@ td {
   line-height: 1.55;
 }
 
+.ai-simulated-label {
+  margin: 0 0 10px;
+  color: #6178a0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ai-button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 9px 11px;
+  border: 1px solid #c7d8f2;
+  border-radius: 8px;
+  background: #fff;
+  color: #315b9b;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ai-button:hover:not(:disabled) {
+  border-color: #8eaddd;
+  background: #f7faff;
+}
+
+.ai-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.ai-error {
+  margin: 0 0 10px;
+  padding: 9px;
+  border: 1px solid #f0d2d2;
+  border-radius: 7px;
+  background: #fff7f7;
+  color: #9c3038;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
 .page-footer {
   display: flex;
   justify-content: space-between;

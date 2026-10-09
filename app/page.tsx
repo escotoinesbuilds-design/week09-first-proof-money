@@ -1,3 +1,4 @@
+import AiSummary from "@/app/ai-summary";
 import {
   assessPlacement,
   placements,
@@ -348,28 +349,11 @@ export default function Home() {
               </p>
             </section>
 
-            <section className="panel ai-panel">
-              <div className="ai-heading">
-                <span className="ai-sparkle" aria-hidden="true">
-                  ✦
-                </span>
-                <div>
-                  <p className="eyebrow">SIMULATED — FOR EXPLANATION ONLY</p>
-                  <h2>Simulated AI Summary</h2>
-                </div>
-              </div>
-              <p className="ai-copy">
-                This fictional sample has {studentCount} placements.{" "}
-                {verifiedStartCount} show a verified paid start and are eligible
-                for human payment review. {flaggedPlacements.length} placements
-                have warning flags that require staff review.
-              </p>
-              <p className="ai-boundary">
-                This simulated summary explains the displayed records only. It
-                does not verify evidence, decide employability, change
-                eligibility, or authorize payment.
-              </p>
-            </section>
+            <AiSummary
+              flaggedCount={flaggedPlacements.length}
+              studentCount={studentCount}
+              verifiedStartCount={verifiedStartCount}
+            />
           </div>
         </div>
 

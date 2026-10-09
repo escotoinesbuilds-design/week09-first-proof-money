@@ -7,6 +7,7 @@ export type Placement = {
   employerId: string;
   employerName: string;
   isPartner: boolean;
+  genuineRole: boolean;
   role: string;
   term: string;
   paid: boolean;
@@ -27,6 +28,12 @@ export type PlacementAssessment = {
   warningFlags: string[];
 };
 
+function isValidStartDate(value: string | null): value is string {
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00.000Z`);
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
 export const placements: Placement[] = [
   {
     id: "FP-1001",
@@ -35,6 +42,7 @@ export const placements: Placement[] = [
     employerId: "EMP-01",
     employerName: "Northstar Works",
     isPartner: true,
+    genuineRole: true,
     role: "Marketing Intern",
     term: "Fall 2025",
     paid: true,
@@ -54,6 +62,7 @@ export const placements: Placement[] = [
     employerId: "EMP-02",
     employerName: "Cedar Grove Analytics",
     isPartner: true,
+    genuineRole: true,
     role: "Data Analyst Co-op",
     term: "Fall 2025",
     paid: true,
@@ -73,6 +82,7 @@ export const placements: Placement[] = [
     employerId: "EMP-03",
     employerName: "Mapleline Studio",
     isPartner: true,
+    genuineRole: true,
     role: "Project Assistant",
     term: "Fall 2025",
     paid: true,
@@ -92,6 +102,7 @@ export const placements: Placement[] = [
     employerId: "EMP-04",
     employerName: "Brightpath Services",
     isPartner: true,
+    genuineRole: true,
     role: "Customer Success Associate",
     term: "Spring 2026",
     paid: true,
@@ -111,6 +122,7 @@ export const placements: Placement[] = [
     employerId: "EMP-05",
     employerName: "Harbor Point Labs",
     isPartner: true,
+    genuineRole: true,
     role: "Research Assistant",
     term: "Fall 2025",
     paid: true,
@@ -130,6 +142,7 @@ export const placements: Placement[] = [
     employerId: "EMP-05",
     employerName: "Harbor Point Labs",
     isPartner: true,
+    genuineRole: true,
     role: "Lab Support Intern",
     term: "Spring 2026",
     paid: true,
@@ -149,6 +162,7 @@ export const placements: Placement[] = [
     employerId: "EMP-06",
     employerName: "Pinecrest Digital",
     isPartner: true,
+    genuineRole: true,
     role: "Software Support Trainee",
     term: "Spring 2026",
     paid: false,
@@ -168,6 +182,7 @@ export const placements: Placement[] = [
     employerId: "EMP-07",
     employerName: "Ridgeway Health",
     isPartner: true,
+    genuineRole: true,
     role: "Data Operations Intern",
     term: "Fall 2025",
     paid: true,
@@ -187,6 +202,7 @@ export const placements: Placement[] = [
     employerId: "EMP-08",
     employerName: "Vale & Co.",
     isPartner: true,
+    genuineRole: true,
     role: "Business Operations Assistant",
     term: "Spring 2026",
     paid: true,
@@ -206,6 +222,7 @@ export const placements: Placement[] = [
     employerId: "EMP-09",
     employerName: "Westhaven Cooperative",
     isPartner: true,
+    genuineRole: true,
     role: "Communications Intern",
     term: "Fall 2025",
     paid: true,
@@ -225,8 +242,11 @@ export function assessPlacement(
 ): PlacementAssessment {
   const missingRequirements: string[] = [];
   if (!placement.isPartner) missingRequirements.push("employer partnership");
+  if (!placement.genuineRole) missingRequirements.push("genuine role");
   if (!placement.paid) missingRequirements.push("paid role");
-  if (!placement.officialStartDate) missingRequirements.push("official start");
+  if (!isValidStartDate(placement.officialStartDate)) {
+    missingRequirements.push("valid official start date");
+  }
   if (placement.evidenceStatus !== "verified") {
     missingRequirements.push("verified evidence");
   }

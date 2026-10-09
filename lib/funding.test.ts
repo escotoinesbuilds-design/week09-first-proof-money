@@ -47,6 +47,20 @@ test("a verified paid start at a non-partner employer is not eligible", () => {
   );
 });
 
+test("a role not established as genuine is not eligible for payment review", () => {
+  const placement = placements.find(({ id }) => id === "FP-1001");
+  assert.ok(placement);
+  const unestablishedRole: Placement = {
+    ...placement,
+    genuineRole: false,
+  };
+
+  const assessment = assessPlacement(unestablishedRole);
+  assert.equal(assessment.verifiedPaidStart, false);
+  assert.equal(assessment.paymentEligible, false);
+  assert.match(assessment.eligibilityReason, /genuine role/);
+});
+
 test("warning signals request human review without changing eligibility", () => {
   const repeatedPlacement = placements.find(({ id }) => id === "FP-1005");
   const shadowClausePlacement = placements.find(({ id }) => id === "FP-1004");
@@ -76,4 +90,18 @@ test("an official start without verified evidence is not eligible", () => {
   assert.equal(assessment.verifiedPaidStart, false);
   assert.equal(assessment.paymentEligible, false);
   assert.match(assessment.eligibilityReason, /verified evidence required/);
+});
+
+test("an invalid official start date cannot qualify for payment review", () => {
+  const placement = placements.find(({ id }) => id === "FP-1001");
+  assert.ok(placement);
+  const invalidDatePlacement: Placement = {
+    ...placement,
+    officialStartDate: "2025-02-30",
+  };
+
+  const assessment = assessPlacement(invalidDatePlacement);
+  assert.equal(assessment.verifiedPaidStart, false);
+  assert.equal(assessment.paymentEligible, false);
+  assert.match(assessment.eligibilityReason, /valid official start date/);
 });
