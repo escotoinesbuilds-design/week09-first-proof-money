@@ -19,8 +19,9 @@
 - Added fictional repeated-short-placement, possible shadow-clause, and continuing-junior-work signals. Added a static, clearly labeled simulated AI summary; it has no decision authority and does not call an API.
 - Confirmed no editable inputs, login, database, real personal data, secrets, or external API dependency are needed for this prototype.
 - Mechanical verification: all 5 rule tests pass; ESLint passes; `next build` passes. The first production build exposed an extra closing brace in the responsive stylesheet; removing it fixed the build. The production dependency audit then identified a vulnerable earlier Next.js line, so Next.js was upgraded to 16.4.0. The Next-specific lint preset introduced five high findings in a development-only transitive dependency; replacing it with the standard TypeScript ESLint preset resulted in zero reported vulnerabilities across the installed dependency tree.
+- Started the local Next.js development server at `http://127.0.0.1:3000` and inspected the rendered dashboard. Disabled Next.js managed agent-rule file generation to avoid adding an unrelated `AGENTS.md`.
 - No Vercel deployment or synthetic administrator persona test has been performed.
 
 ### Next action
 
-Start and inspect the local dashboard, then configure and verify Vercel deployment 1 with fictional data only. In the later stage, discover and fix a genuine product behavior bug with a regression test, redeploy as deployment 2, and run the synthetic administrator persona test. Do not mark those later-stage tasks complete until performed.
+Configure and verify Vercel deployment 1 with fictional data only. In the later stage, discover and fix a genuine product behavior bug with a regression test, redeploy as deployment 2, and run the synthetic administrator persona test. Do not mark those later-stage tasks complete until performed.
