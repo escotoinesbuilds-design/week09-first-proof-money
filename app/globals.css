@@ -452,6 +452,41 @@ td {
   line-height: 1.35;
 }
 
+.evidence-details {
+  margin-top: 6px;
+  font-size: 10px;
+}
+
+.evidence-details summary {
+  color: #315b9b;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.evidence-panel {
+  min-width: 225px;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid #dbe5f4;
+  border-radius: 7px;
+  background: #f7faff;
+  color: #435574;
+  line-height: 1.45;
+}
+
+.evidence-panel > strong {
+  color: #294c7e;
+}
+
+.evidence-panel ul {
+  margin: 7px 0;
+  padding-left: 17px;
+}
+
+.evidence-panel p {
+  margin: 7px 0 0;
+}
+
 .term-cell {
   white-space: nowrap;
 }
@@ -685,6 +720,16 @@ td {
   border-top: 1px solid #dbe5f4;
   color: #64758f;
   font-size: 10px;
+  line-height: 1.55;
+}
+
+.ai-explanation {
+  margin: 0 0 10px;
+  padding: 10px;
+  border-radius: 7px;
+  background: #fff;
+  color: #354a6c;
+  font-size: 11px;
   line-height: 1.55;
 }
 

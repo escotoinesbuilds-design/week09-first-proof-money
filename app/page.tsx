@@ -245,6 +245,33 @@ export default function Home() {
                           {startDate && (
                             <span className="cell-detail">{startDate}</span>
                           )}
+                          {assessment.verifiedPaidStart && (
+                            <details className="evidence-details">
+                              <summary>View evidence</summary>
+                              <div className="evidence-panel">
+                                <strong>
+                                  Fictional demonstration evidence
+                                </strong>
+                                <ul>
+                                  <li>Signed offer / employment agreement</li>
+                                  <li>Confirmed paid role</li>
+                                  <li>
+                                    Confirmed start date: {startDate}
+                                  </li>
+                                  <li>Employer confirmation</li>
+                                </ul>
+                                <p>
+                                  Verified evidence makes this placement
+                                  eligible for funding review. It does not
+                                  authorize payment.
+                                </p>
+                                <p>
+                                  Final payment authorization remains with
+                                  university staff.
+                                </p>
+                              </div>
+                            </details>
+                          )}
                         </td>
                         <td>
                           <span
@@ -352,6 +379,9 @@ export default function Home() {
             <AiSummary
               flaggedCount={flaggedPlacements.length}
               studentCount={studentCount}
+              warningFlags={flaggedPlacements.flatMap(
+                ({ assessment }) => assessment.warningFlags,
+              )}
               verifiedStartCount={verifiedStartCount}
             />
           </div>
